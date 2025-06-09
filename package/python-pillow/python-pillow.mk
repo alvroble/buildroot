@@ -17,6 +17,13 @@ PYTHON_PILLOW_DEPENDENCIES = host-pkgconf
 PYTHON_PILLOW_BUILD_OPTS = build_ext --disable-platform-guessing
 PYTHON_PILLOW_INSTALL_TARGET_OPTS = $(PYTHON_PILLOW_BUILD_OPTS)
 
+ifeq ($(BR2_PACKAGE_LIBRAQM),y)
+PYTHON_PILLOW_DEPENDENCIES += libraqm
+PYTHON_PILLOW_BUILD_OPTS += --enable-raqm --vendor-raqm
+else
+PYTHON_PILLOW_BUILD_OPTS += --disable-raqm
+endif
+
 ifeq ($(BR2_PACKAGE_FREETYPE),y)
 PYTHON_PILLOW_DEPENDENCIES += freetype
 PYTHON_PILLOW_BUILD_OPTS += --enable-freetype
